@@ -35,13 +35,13 @@ class APIResponse(BaseModel):
 @app.post("/predict")
 async def predict_price(input_data: PriceInput) -> APIResponse:
     # Prepare the input for prediction
-    data = pd.DataFrame([input_data.dict()])
+    data = pd.DataFrame([input_data.model_dump()])
     
     # Feature engineering for input data
     data['contract_year'] = data['contract_date'].apply(lambda x: int(x[:2]) + 2000 if int(x[:2]) < 50 else 1900 + int(x[:2]))
     data['contract_date'] = pd.to_datetime(data['contract_date'].apply(lambda x: x[:2] + '/' + x[2:]), format='%m/%y')
     
-    # Encode categorical variables using the fitted label encoders
+    # Encode categorical variables using the fitted label encoders, if it contains unseen categorical values, set as -1
     try:
         data.loc[:, 'project_name'] = label_encoder_project_name.transform(data['project_name'])
     except ValueError:
@@ -57,6 +57,7 @@ async def predict_price(input_data: PriceInput) -> APIResponse:
     except ValueError:
         data['floor_range'] = -1
     
+    # Extract contract year and month
     data.loc[:, 'contract_year'] = data['contract_date'].dt.year
     data.loc[:, 'contract_month'] = data['contract_date'].dt.month
 
@@ -69,8 +70,10 @@ async def predict_price(input_data: PriceInput) -> APIResponse:
     # Standardize
     data.loc[:,['area', 'latitude', 'longitude']] = scaler.transform(data[['area', 'latitude', 'longitude']])
 
-    # Make a prediction
+    # Pretty print for logging
     print(tabulate(data, headers = 'keys', tablefmt = 'psql'))
+
+    # Make prediction
     price = model.predict(data)
     
     return {"predicted_price": price}

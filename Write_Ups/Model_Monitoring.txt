@@ -1,0 +1,30 @@
+Model Monitoring Metrics:
+
+MAE & MSE:
+Calculates the average absolute difference and average squared difference between predicted and actual prices. Track this metric by periodically comparing the predicted EC prices against actual transaction prices in the database. Implement a batch process (e.g., daily or weekly) to compute the MAE and MSE and log the results to CloudWatch Logs or a dedicated monitoring dashboard. This logs can be used to visualize trends overtime.
+
+Latency:
+Measures the time taken for the API to respond to requests. Use AWS CloudWatch to monitor API response times in real-time. Set alarms to notify when latency exceeds a predefined threshold, indicating potential performance issues.
+
+Error Rate:
+The percentage of failed requests due to errors (e.g., model errors, timeouts). Capture and log error messages in CloudWatch Logs. Calculate the error rate based on total requests and failed requests, and set up alarms for high error rates.
+
+Data Quality Metrics:
+Monitors the quality of incoming data, including completeness and consistency. Implement validation checks when data is ingested from the URA API. Log any inconsistencies or missing data points and periodically review these logs to ensure data integrity.
+
+
+Monitoring Framework:
+
+Use AWS CloudWatch for real-time monitoring and logging of the above metrics. Set up custom metrics in CloudWatch to track prediction accuracy, MAE, latency, and error rates.
+Automated Reporting:
+
+Automate report generation that generates daily or weekly reports summarizing the monitoring metrics. These reports can be sent to stakeholders via email or stored in a shared location for review.
+Alerts and Notifications:
+
+Set up CloudWatch Alarms for key metrics (e.g., prediction accuracy, error rate, and latency) to notify the development team when thresholds are exceeded, enabling timely investigation and resolution of issues.
+Feedback Loop:
+
+Create a feedback loop to incorporate monitoring results into the model's retraining process. When significant drift or a drop in accuracy is detected, trigger a review and potential retraining of the model with updated data.
+Dashboard Visualization:
+
+Develop a monitoring dashboard using CloudWatch Dashboards or a third-party tool (e.g., Grafana) to visualize the metrics and provide an overview of the model's performance at a glance.

@@ -1,0 +1,36 @@
+1. Access Controls
+
+Role-Based Access Control (RBAC):
+Implement RBAC to manage user permissions for accessing the model, data, and API. Define roles such as "Data Scientist," "Model Validator," and "API Consumer" with specific permissions to limit access based on the user's needs.
+
+Audit Trails:
+Maintain an audit log to track user activities, including access to model artifacts, data changes, and API usage. This is for accountability and transparency.
+
+2. Versioning Models
+
+Model Versioning:
+Use tools like DVC (Data Version Control) or MLflow to version models and their associated datasets. Each model iteration should be tagged with a unique identifier, allowing for easy rollback to previous versions if needed.
+
+Model Documentation:
+Maintain detailed documentation for each model version, including changes made, performance metrics, and any relevant notes regarding feature updates or retraining processes.
+
+3. Testing for Model Bias
+
+Regular Audits:
+Conduct regular audits of the model's performance and bias metrics, particularly after significant changes to the model or data. This ensures ongoing compliance with fairness and ethical standards.
+
+4. Change Management
+
+Change Request Process:
+Establish a formal change request process for model updates, feature changes, or new data sources. This process should involve stakeholders from relevant teams (e.g., data science, compliance) to assess the impact of changes before implementation.
+
+Review and Approval:
+Implement a review and approval workflow for significant model updates, involving peer reviews and sign-offs (eg. Pull Request Reviews requiring 1 or more reviewers approval). This ensures that all changes are critically evaluated for their impact on model performance and governance.
+
+5. Continuous Monitoring and Feedback
+
+Performance Monitoring:
+Continuously monitor the model's performance metrics and any indicators of bias or drift. Set up automated alerts to notify of any concerning trends.
+
+Feedback Mechanism:
+Create feedback loop where users and stakeholders can report issues or provide input regarding model performance, bias, or any other concerns such as a simple form or email to drop feedbacks. This feedback should be reviewed regularly to inform governance decisions and improvements.
