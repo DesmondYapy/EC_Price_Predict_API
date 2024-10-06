@@ -53,3 +53,4 @@ API Exposes: `POST /predict`
     "contract_date": "0715"
 }
 ```
+Data Ingestion from URA API and Model Training can be found in `model_training` folder
